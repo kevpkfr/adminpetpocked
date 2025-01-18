@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión Veterinaria - Dashboard</title>
+    <!-- Enlace a TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configuración de colores personalizados en TailwindCSS
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        peach: '#FFDAB9', // Color durazno
+                        orange: '#FF8C42', // Color naranja
+                        darkOrange: '#E76F24', // Naranja más oscuro para hover
+                        lightGray: '#F5F5F5', // Gris claro para fondo
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-lightGray font-sans">
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-orange text-white h-screen p-6">
+            <div class="flex items-center mb-10">
+                <!-- Logo -->
+                <img src="/assets/images/logo.png" alt="Logo" class="h-12 w-12 mr-4">
+                <h2 class="text-2xl font-bold">Mi PetPocket</h2>
+            </div>
+            <h2 class="text-xl font-bold mb-6">Menú Principal</h2>
+            <nav>
+                <ul class="space-y-4">
+                    <li>
+                        <a href="./pets.html" class="flex items-center hover:text-darkOrange transition-colors">
+                            <span class="mr-3">🐾</span> Mascotas
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./inventory.html" class="flex items-center hover:text-darkOrange transition-colors">
+                            <span class="mr-3">📦</span> Inventario
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./services.html" class="flex items-center hover:text-darkOrange transition-colors">
+                            <span class="mr-3">⚕️</span> Servicios
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/core/dashboard.html" class="flex items-center hover:text-darkOrange transition-colors">
+                            <span class="mr-3">🔙</span> Volver al Dashboard
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <main class="flex-grow p-8">
+            <div class="container mx-auto">
+                <h1 class="text-4xl font-bold text-center mb-12 text-orange">Bienvenido al Dashboard de Gestión
+                    Veterinaria</h1>
+
+                <!-- Estadísticas (Cards) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                    <div class="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300">
+                        <h5 class="text-xl font-semibold mb-4 text-orange">Total de Mascotas</h5>
+                        <p class="text-4xl font-bold text-gray-700">123</p>
+                        <a href="./pets.html"
+                            class="mt-6 inline-block bg-orange text-white px-4 py-2 rounded hover:bg-darkOrange transition duration-200">
+                            Ver detalles
+                        </a>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300">
+                        <h5 class="text-xl font-semibold mb-4 text-orange">Inventario Disponible</h5>
+                        <p class="text-4xl font-bold text-gray-700">56 productos</p>
+                        <a href="./inventory.html"
+                            class="mt-6 inline-block bg-orange text-white px-4 py-2 rounded hover:bg-darkOrange transition duration-200">
+                            Ver detalles
+                        </a>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300">
+                        <h5 class="text-xl font-semibold mb-4 text-orange">Servicios Activos</h5>
+                        <p class="text-4xl font-bold text-gray-700">8</p>
+                        <a href="./services.html"
+                            class="mt-6 inline-block bg-orange text-white px-4 py-2 rounded hover:bg-darkOrange transition duration-200">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Últimos registros -->
+                <div class="bg-white shadow-lg rounded-lg">
+                    <div class="p-6 border-b border-orange">
+                        <h5 class="text-2xl font-semibold text-orange">Últimos Registros</h5>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Aquí se muestran los últimos registros de mascotas, servicios y
+                            otros elementos importantes:</p>
+                        <table class="w-full table-auto border-collapse text-gray-700">
+                            <thead>
+                                <tr class="bg-orange text-white">
+                                    <th class="py-3 px-4">Fecha</th>
+                                    <th class="py-3 px-4">Tipo</th>
+                                    <th class="py-3 px-4">Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd:bg-lightGray even:bg-white">
+                                    <td class="py-3 px-4 text-center">18/01/2025</td>
+                                    <td class="py-3 px-4 text-center">Mascota</td>
+                                    <td class="py-3 px-4">Registro de nueva mascota</td>
+                                </tr>
+                                <tr class="odd:bg-lightGray even:bg-white">
+                                    <td class="py-3 px-4 text-center">17/01/2025</td>
+                                    <td class="py-3 px-4 text-center">Inventario</td>
+                                    <td class="py-3 px-4">Agregado nuevo producto</td>
+                                </tr>
+                                <tr class="odd:bg-lightGray even:bg-white">
+                                    <td class="py-3 px-4 text-center">16/01/2025</td>
+                                    <td class="py-3 px-4 text-center">Servicio</td>
+                                    <td class="py-3 px-4">Servicio médico realizado</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

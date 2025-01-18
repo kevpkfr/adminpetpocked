@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario</title>
+    <!-- Enlace a Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Colores personalizados */
+        :root {
+            --peach: #fdf2e6;
+            /* Durazno */
+            --orange: #FF8C42;
+            /* Naranja */
+            --darkOrange: #E76F24;
+            /* Naranja oscuro */
+        }
+    </style>
+</head>
+
+<body class="bg-[var(--peach)] font-sans">
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="bg-[var(--orange)] text-white p-6 w-64 min-h-screen">
+            <h2 class="text-2xl font-bold mb-6">Gestión Veterinaria</h2>
+            <ul class="space-y-4">
+                <li>
+                    <a href="index.html" class="block text-lg hover:bg-[var(--darkOrange)] p-2 rounded">🏠 Inicio</a>
+                </li>
+                <li>
+                    <a href="pets.html" class="block text-lg hover:bg-[var(--darkOrange)] p-2 rounded">🐾 Gestión de
+                        Mascotas</a>
+                </li>
+                <li>
+                    <a href="services.html" class="block text-lg hover:bg-[var(--darkOrange)] p-2 rounded">⚕️
+                        Servicios</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 p-6">
+            <h1 class="text-3xl font-bold text-center text-[var(--orange)] mb-6">Inventario</h1>
+            <button class="bg-[var(--orange)] text-white px-4 py-2 rounded hover:bg-[var(--darkOrange)] mb-4"
+                id="btnAgregar">➕ Agregar Producto</button>
+            <table class="min-w-full border-collapse table-auto">
+                <thead class="bg-[var(--darkOrange)] text-white">
+                    <tr>
+                        <th class="border-b p-4">Producto</th>
+                        <th class="border-b p-4">Tipo</th>
+                        <th class="border-b p-4">Stock</th>
+                        <th class="border-b p-4">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaInventario">
+                    <tr class="border-b">
+                        <td class="p-4">Vacuna Antirrábica</td>
+                        <td class="p-4">Medicina</td>
+                        <td class="p-4">50</td>
+                        <td class="p-4">
+                            <button class="bg-yellow-400 text-white px-3 py-1 rounded-sm btnEditar">✏️</button>
+                            <button class="bg-red-500 text-white px-3 py-1 rounded-sm btnEliminar">🗑️</button>
+                        </td>
+                    </tr>
+                    <tr class="border-b">
+                        <td class="p-4">Collares Antipulgas</td>
+                        <td class="p-4">Accesorio</td>
+                        <td class="p-4">30</td>
+                        <td class="p-4">
+                            <button class="bg-yellow-400 text-white px-3 py-1 rounded-sm btnEditar">✏️</button>
+                            <button class="bg-red-500 text-white px-3 py-1 rounded-sm btnEliminar">🗑️</button>
+                        </td>
+                    </tr>
+                    <tr class="border-b">
+                        <td class="p-4">Alimento Premium</td>
+                        <td class="p-4">Comida</td>
+                        <td class="p-4">100</td>
+                        <td class="p-4">
+                            <button class="bg-yellow-400 text-white px-3 py-1 rounded-sm btnEditar">✏️</button>
+                            <button class="bg-red-500 text-white px-3 py-1 rounded-sm btnEliminar">🗑️</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden" id="modalProducto">
+        <div class="flex justify-center items-center min-h-screen">
+            <div class="bg-white rounded-lg p-6 w-96">
+                <h5 class="text-xl font-bold mb-4 text-[var(--orange)]">Agregar/Editar Producto</h5>
+                <form id="formProducto">
+                    <div class="mb-3">
+                        <label for="productoNombre" class="block text-sm font-medium">Nombre del Producto</label>
+                        <input type="text" id="productoNombre" class="w-full p-2 border border-gray-300 rounded-md"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productoTipo" class="block text-sm font-medium">Tipo</label>
+                        <select id="productoTipo" class="w-full p-2 border border-gray-300 rounded-md" required>
+                            <option value="" disabled selected>Seleccione un tipo...</option>
+                            <option value="Medicina">Medicina</option>
+                            <option value="Accesorio">Accesorio</option>
+                            <option value="Comida">Comida</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productoStock" class="block text-sm font-medium">Stock</label>
+                        <input type="number" id="productoStock" class="w-full p-2 border border-gray-300 rounded-md"
+                            min="1" required>
+                    </div>
+                </form>
+                <div class="flex justify-between">
+                    <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-md"
+                        id="cancelarModal">Cancelar</button>
+                    <button type="button" class="bg-[var(--orange)] text-white px-4 py-2 rounded-md"
+                        id="guardarProducto">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tablaInventario = document.getElementById('tablaInventario');
+        const btnAgregar = document.getElementById('btnAgregar');
+        const modalProducto = document.getElementById('modalProducto');
+        const formProducto = document.getElementById('formProducto');
+        const guardarProductoBtn = document.getElementById('guardarProducto');
+        const cancelarModalBtn = document.getElementById('cancelarModal');
+        let editarFila = null;
+
+        // Abrir modal para agregar producto
+        btnAgregar.addEventListener('click', () => {
+            formProducto.reset();
+            editarFila = null;
+            modalProducto.classList.remove('hidden');
+        });
+
+        // Guardar producto
+        guardarProductoBtn.addEventListener('click', () => {
+            const nombre = document.getElementById('productoNombre').value.trim();
+            const tipo = document.getElementById('productoTipo').value;
+            const stock = document.getElementById('productoStock').value;
+
+            if (!nombre || !tipo || !stock) {
+                alert('Por favor, complete todos los campos.');
+                return;
+            }
+
+            if (editarFila) {
+                editarFila.cells[0].textContent = nombre;
+                editarFila.cells[1].textContent = tipo;
+                editarFila.cells[2].textContent = stock;
+            } else {
+                const fila = tablaInventario.insertRow();
+                fila.innerHTML = `
+                    <td class="p-4">${nombre}</td>
+                    <td class="p-4">${tipo}</td>
+                    <td class="p-4">${stock}</td>
+                    <td class="p-4">
+                        <button class="bg-yellow-400 text-white px-3 py-1 rounded-sm btnEditar">✏️</button>
+                        <button class="bg-red-500 text-white px-3 py-1 rounded-sm btnEliminar">🗑️</button>
+                    </td>
+                `;
+            }
+
+            modalProducto.classList.add('hidden');
+        });
+
+        // Editar o eliminar productos
+        tablaInventario.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            const fila = btn.closest('tr');
+
+            if (btn.classList.contains('btnEditar')) {
+                editarFila = fila;
+                document.getElementById('productoNombre').value = fila.cells[0].textContent;
+                document.getElementById('productoTipo').value = fila.cells[1].textContent;
+                document.getElementById('productoStock').value = fila.cells[2].textContent;
+                modalProducto.classList.remove('hidden');
+            } else if (btn.classList.contains('btnEliminar')) {
+                fila.remove();
+            }
+        });
+
+        // Cerrar modal
+        cancelarModalBtn.addEventListener('click', () => {
+            modalProducto.classList.add('hidden');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios Veterinarios</title>
+    <!-- Enlace a Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Colores personalizados */
+        :root {
+            --peach: #fff1e4;
+            /* Durazno */
+            --orange: #FF8C42;
+            /* Naranja */
+            --darkOrange: #E76F24;
+            /* Naranja oscuro */
+            --white: #FFFFFF;
+            /* Blanco */
+        }
+    </style>
+</head>
+
+<body class="bg-[var(--peach)] font-sans">
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="bg-[var(--orange)] text-[var(--white)] p-4 w-64 min-h-screen">
+            <h2 class="text-2xl font-bold mb-6">Gestión Veterinaria</h2>
+            <ul class="space-y-4">
+                <li>
+                    <a href="index.html" class="block text-lg hover:bg-[var(--darkOrange)] p-2 rounded">🏠 Inicio</a>
+                </li>
+                <li>
+                    <a href="pets.html" class="block text-lg hover:bg-[var(--darkOrange)] p-2 rounded">🐾 Gestión de
+                        Mascotas</a>
+                </li>
+                <li>
+                    <a href="inventory.html" class="block text-lg hover:bg-[var(--darkOrange)] p-2 rounded">📦
+                        Inventario</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 p-8">
+            <h1 class="text-center text-[var(--orange)] text-3xl font-bold mb-6">Registro de Mascotas</h1>
+            <form id="registroMascotas" class="bg-white p-6 rounded-lg shadow-md">
+                <!-- Imagen de Mascota -->
+                <!-- Imagen de Mascota -->
+                <div class="mb-6 text-center">
+                    <input type="file" id="imagenMascota" class="hidden" accept="image/*">
+                    <label for="imagenMascota">
+                        <img id="previewImagen"
+                            class="w-24 h-24 rounded-full object-cover border-4 border-[var(--orange)] cursor-pointer mx-auto">
+                    </label>
+                </div>
+
+                <!-- Nombre -->
+                <div class="mb-4">
+                    <label for="nombre" class="block text-lg font-medium text-gray-700">Nombre</label>
+                    <input type="text" id="nombre" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                        required>
+                </div>
+
+                <!-- Ciudad y Barrio -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="ciudad" class="block text-lg font-medium text-gray-700">Ciudad</label>
+                        <input type="text" id="ciudad" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                            required>
+                    </div>
+                    <div>
+                        <label for="barrio" class="block text-lg font-medium text-gray-700">Barrio</label>
+                        <input type="text" id="barrio" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                            required>
+                    </div>
+                </div>
+
+                <!-- Teléfono y Celular -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="telefono" class="block text-lg font-medium text-gray-700">Teléfono</label>
+                        <input type="text" id="telefono" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                            required>
+                    </div>
+                    <div>
+                        <label for="celular" class="block text-lg font-medium text-gray-700">Celular</label>
+                        <input type="text" id="celular" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                            required>
+                    </div>
+                </div>
+
+                <!-- Tipo de Mascota y Cantidad -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="tipoMascota" class="block text-lg font-medium text-gray-700">Tipo de Mascota</label>
+                        <select id="tipoMascota" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                            required>
+                            <option value="" disabled selected>Seleccione...</option>
+                            <option value="Perro">Perro</option>
+                            <option value="Gato">Gato</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <label for="cantidadMascotas" class="text-lg font-medium text-gray-700">Cantidad</label>
+                        <button type="button" id="decrementar"
+                            class="bg-gray-200 text-gray-700 px-4 py-2 rounded">-</button>
+                        <input type="number" id="cantidadMascotas"
+                            class="w-16 text-center border border-gray-300 rounded-md" value="1" min="1" readonly>
+                        <button type="button" id="incrementar"
+                            class="bg-gray-200 text-gray-700 px-4 py-2 rounded">+</button>
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <div class="flex justify-between">
+                    <button type="reset"
+                        class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Cancelar</button>
+                    <button type="button" id="guardar"
+                        class="bg-[var(--orange)] text-white px-4 py-2 rounded hover:bg-[var(--darkOrange)]">Guardar</button>
+                </div>
+            </form>
+
+            <!-- Mostrar los datos ingresados -->
+            <div id="datosGuardados" class="mt-6 p-4 bg-white rounded-lg shadow-md hidden">
+                <h2 class="text-[var(--orange)] text-2xl font-bold mb-4">Datos Guardados</h2>
+                <div id="informacionMascota" class="space-y-4">
+                    <!-- Los datos se mostrarán aquí -->
+                </div>
+                <div class="mt-4 flex gap-4">
+                    <button id="editarBtn"
+                        class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Editar</button>
+                    <button id="eliminarBtn"
+                        class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const previewImagen = document.getElementById('previewImagen');
+        const imagenMascota = document.getElementById('imagenMascota');
+        const cantidadInput = document.getElementById('cantidadMascotas');
+        const decrementarBtn = document.getElementById('decrementar');
+        const incrementarBtn = document.getElementById('incrementar');
+        const guardarBtn = document.getElementById('guardar');
+        const form = document.getElementById('registroMascotas');
+        const datosGuardados = document.getElementById('datosGuardados');
+        const informacionMascota = document.getElementById('informacionMascota');
+        const editarBtn = document.getElementById('editarBtn');
+        const eliminarBtn = document.getElementById('eliminarBtn');
+
+        let datosGuardadosFlag = false; // Variable para saber si ya hay datos guardados
+
+        // Mostrar vista previa de la imagen cargada
+        imagenMascota.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                previewImagen.src = URL.createObjectURL(file);
+            }
+        });
+
+        // Incrementar y decrementar cantidad
+        decrementarBtn.addEventListener('click', () => {
+            const currentValue = parseInt(cantidadInput.value, 10);
+            if (currentValue > 1) cantidadInput.value = currentValue - 1;
+        });
+
+        incrementarBtn.addEventListener('click', () => {
+            const currentValue = parseInt(cantidadInput.value, 10);
+            cantidadInput.value = currentValue + 1;
+        });
+
+        // Mostrar los datos ingresados después de hacer clic en Guardar
+        guardarBtn.addEventListener('click', () => {
+            const nombre = document.getElementById('nombre').value.trim();
+            const ciudad = document.getElementById('ciudad').value.trim();
+            const barrio = document.getElementById('barrio').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const celular = document.getElementById('celular').value.trim();
+            const tipoMascota = document.getElementById('tipoMascota').value;
+            const cantidadMascotas = document.getElementById('cantidadMascotas').value;
+
+            // Verificar que todos los campos estén completos
+            if (!nombre || !ciudad || !barrio || !telefono || !celular || !tipoMascota || !cantidadMascotas) {
+                alert('Por favor, completa todos los campos antes de guardar.');
+                return;
+            }
+
+            // Mostrar los datos en la sección de datos guardados
+            informacionMascota.innerHTML = `
+                <p><strong>Nombre:</strong> ${nombre}</p>
+                <p><strong>Ciudad:</strong> ${ciudad}</p>
+                <p><strong>Barrio:</strong> ${barrio}</p>
+                <p><strong>Teléfono:</strong> ${telefono}</p>
+                <p><strong>Celular:</strong> ${celular}</p>
+                <p><strong>Tipo de Mascota:</strong> ${tipoMascota}</p>
+                <p><strong>Cantidad:</strong> ${cantidadMascotas}</p>
+            `;
+
+            // Mostrar la sección de datos guardados
+            datosGuardados.classList.remove('hidden');
+            datosGuardadosFlag = true;
+        });
+
+        // Editar datos guardados
+        editarBtn.addEventListener('click', () => {
+            if (!datosGuardadosFlag) return;
+
+            // Rellenar los campos del formulario con los datos guardados
+            const nombre = document.getElementById('nombre').value.trim();
+            const ciudad = document.getElementById('ciudad').value.trim();
+            const barrio = document.getElementById('barrio').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const celular = document.getElementById('celular').value.trim();
+            const tipoMascota = document.getElementById('tipoMascota').value;
+            const cantidadMascotas = document.getElementById('cantidadMascotas').value;
+
+            document.getElementById('nombre').value = nombre;
+            document.getElementById('ciudad').value = ciudad;
+            document.getElementById('barrio').value = barrio;
+            document.getElementById('telefono').value = telefono;
+            document.getElementById('celular').value = celular;
+            document.getElementById('tipoMascota').value = tipoMascota;
+            document.getElementById('cantidadMascotas').value = cantidadMascotas;
+        });
+
+        // Eliminar datos guardados
+        eliminarBtn.addEventListener('click', () => {
+            if (!datosGuardadosFlag) return;
+
+            // Limpiar los datos
+            informacionMascota.innerHTML = '';
+            datosGuardados.classList.add('hidden');
+            form.reset();
+            previewImagen.src = 'https://via.placeholder.com/150';
+            datosGuardadosFlag = false;
+        });
+    </script>
+</body>
+
+</html>

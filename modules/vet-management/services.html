@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios Veterinarios</title>
+    <!-- Enlace a Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Colores personalizados */
+        :root {
+            --durazno: #fff1e4;
+            /* Durazno */
+            --naranja: #FF8C42;
+            /* Naranja */
+            --naranjaOscuro: #E76F24;
+            /* Naranja oscuro */
+            --blanco: #FFFFFF;
+            /* Blanco */
+        }
+    </style>
+</head>
+
+<body class="bg-[var(--durazno)] min-h-screen flex font-sans">
+    <!-- Sidebar -->
+    <div class="bg-[var(--naranja)] text-[var(--blanco)] p-6 w-64 flex flex-col">
+        <h2 class="text-2xl font-bold mb-6 text-center">Gestión Veterinaria</h2>
+        <ul class="space-y-4">
+            <li>
+                <a href="index.html"
+                    class="flex items-center text-[var(--blanco)] hover:text-[var(--naranjaOscuro)] transition duration-300">
+                    🏠 <span class="ml-2">Inicio</span>
+                </a>
+            </li>
+            <li>
+                <a href="pets.html"
+                    class="flex items-center text-[var(--blanco)] hover:text-[var(--naranjaOscuro)] transition duration-300">
+                    🐾 <span class="ml-2">Gestión de Mascotas</span>
+                </a>
+            </li>
+            <li>
+                <a href="inventory.html"
+                    class="flex items-center text-[var(--blanco)] hover:text-[var(--naranjaOscuro)] transition duration-300">
+                    📦 <span class="ml-2">Inventario</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-grow p-6">
+        <h1 class="text-3xl font-bold text-[var(--naranja)] mb-6">Servicios Veterinarios</h1>
+        <button id="addServiceBtn"
+            class="bg-[var(--naranja)] text-[var(--blanco)] py-2 px-6 rounded-md hover:bg-[var(--naranjaOscuro)] transition duration-300 mb-4">
+            ➕ Agregar Servicio
+        </button>
+        <div class="overflow-x-auto rounded-lg shadow-md bg-white">
+            <table class="table-auto w-full border border-gray-200">
+                <thead class="bg-[var(--durazno)] text-[var(--blanco)]">
+                    <tr>
+                        <th class="px-6 py-3 text-left">Servicio</th>
+                        <th class="px-6 py-3 text-left">Precio</th>
+                        <th class="px-6 py-3 text-left">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="servicesTable">
+                    <tr class="hover:bg-gray-100 transition duration-300">
+                        <td class="px-6 py-3">Esterilización</td>
+                        <td class="px-6 py-3">$50</td>
+                        <td class="px-6 py-3 flex space-x-2">
+                            <button
+                                class="bg-yellow-400 text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition duration-300 edit-btn">
+                                ✏️
+                            </button>
+                            <button
+                                class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300 delete-btn">
+                                🗑️
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-100 transition duration-300">
+                        <td class="px-6 py-3">Consulta General</td>
+                        <td class="px-6 py-3">$30</td>
+                        <td class="px-6 py-3 flex space-x-2">
+                            <button
+                                class="bg-yellow-400 text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition duration-300 edit-btn">
+                                ✏️
+                            </button>
+                            <button
+                                class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300 delete-btn">
+                                🗑️
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-100 transition duration-300">
+                        <td class="px-6 py-3">Vacunación</td>
+                        <td class="px-6 py-3">$20</td>
+                        <td class="px-6 py-3 flex space-x-2">
+                            <button
+                                class="bg-yellow-400 text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition duration-300 edit-btn">
+                                ✏️
+                            </button>
+                            <button
+                                class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300 delete-btn">
+                                🗑️
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="serviceModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-md w-96">
+            <h3 class="text-2xl font-semibold text-[var(--naranja)] mb-4" id="serviceModalLabel">Agregar Servicio</h3>
+            <form id="serviceForm">
+                <div class="mb-4">
+                    <label for="serviceName" class="block font-medium text-gray-700">Nombre del Servicio</label>
+                    <input type="text" id="serviceName" class="w-full border border-gray-300 rounded-md px-4 py-2"
+                        required>
+                </div>
+                <div class="mb-4">
+                    <label for="servicePrice" class="block font-medium text-gray-700">Precio</label>
+                    <input type="number" id="servicePrice" class="w-full border border-gray-300 rounded-md px-4 py-2"
+                        required>
+                </div>
+                <input type="hidden" id="editingIndex">
+                <div class="flex justify-end space-x-2">
+                    <button type="button"
+                        class="bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-gray-500 transition duration-300"
+                        onclick="closeModal()">Cancelar</button>
+                    <button type="submit"
+                        class="bg-[var(--naranja)] text-white py-2 px-4 rounded-md hover:bg-[var(--naranjaOscuro)] transition duration-300">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const servicesTable = document.getElementById('servicesTable');
+        const addServiceBtn = document.getElementById('addServiceBtn');
+        const serviceModal = document.getElementById('serviceModal');
+        const serviceForm = document.getElementById('serviceForm');
+        const serviceNameInput = document.getElementById('serviceName');
+        const servicePriceInput = document.getElementById('servicePrice');
+        const editingIndexInput = document.getElementById('editingIndex');
+
+        addServiceBtn.addEventListener('click', () => {
+            serviceForm.reset();
+            editingIndexInput.value = '';
+            document.getElementById('serviceModalLabel').textContent = 'Agregar Servicio';
+            serviceModal.classList.remove('hidden');
+        });
+
+        serviceForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = serviceNameInput.value;
+            const price = servicePriceInput.value;
+            const editingIndex = editingIndexInput.value;
+
+            if (editingIndex) {
+                // Editar servicio
+                const row = servicesTable.children[editingIndex];
+                row.children[0].textContent = name;
+                row.children[1].textContent = `$${price}`;
+            } else {
+                // Agregar servicio nuevo
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="px-6 py-3">${name}</td>
+                    <td class="px-6 py-3">$${price}</td>
+                    <td class="px-6 py-3 flex space-x-2">
+                        <button class="bg-yellow-400 text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition duration-300 edit-btn">✏️</button>
+                        <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300 delete-btn">🗑️</button>
+                    </td>
+                `;
+                servicesTable.appendChild(row);
+                addRowListeners(row);
+            }
+            closeModal();
+        });
+
+        function addRowListeners(row) {
+            row.querySelector('.edit-btn').addEventListener('click', () => {
+                const index = Array.from(servicesTable.children).indexOf(row);
+                editingIndexInput.value = index;
+                serviceNameInput.value = row.children[0].textContent;
+                servicePriceInput.value = row.children[1].textContent.replace('$', '');
+                document.getElementById('serviceModalLabel').textContent = 'Editar Servicio';
+                serviceModal.classList.remove('hidden');
+            });
+
+            row.querySelector('.delete-btn').addEventListener('click', () => {
+                row.remove();
+            });
+        }
+
+        function closeModal() {
+            serviceModal.classList.add('hidden');
+        }
+
+        Array.from(servicesTable.children).forEach(addRowListeners);
+    </script>
+</body>
+
+</html>
