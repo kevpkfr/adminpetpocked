@@ -7,10 +7,10 @@ const PORT = process.env.PORT || 3000;
 // 📌 Servir archivos estáticos desde la carpeta "core"
 app.use(express.static(path.join(__dirname, "core")));
 
-// 📌 Servir archivos estáticos desde la carpeta "modules"
+//  Servir archivos estáticos desde la carpeta "modules"
 app.use("/modules", express.static(path.join(__dirname, "modules")));
 
-// 📌 Rutas directas a los archivos HTML (para evitar problemas de redirección)
+//  Rutas directas a los archivos HTML (para evitar problemas de redirección)
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "core", "login.html"));
 });

@@ -29,14 +29,14 @@
         <nav class="sidebar bg-[var(--orange)] text-white w-64 p-6 flex flex-col">
             <!-- Logo y Título -->
             <div class="flex items-center mb-8">
-                <img src="/assets/images/logo.png" alt="Logo" class="h-12 w-12 mr-4"> <!-- Logo -->
+                <img src="../assets/images/logo.png" alt="Logo" class="h-12 w-12 mr-4"> <!-- Logo -->
                 <h2 class="text-2xl font-bold">Mi Petpocked</h2>
             </div>
 
             <!-- Perfil de Usuario -->
             <div class="bg-white text-black p-4 rounded-lg mb-6">
                 <div class="flex items-center space-x-4">
-                    <img src="/assets/images/perfil.jpg" alt="Avatar" class="rounded-full h-12 w-12">
+                    <img src="../assets/images/perfil.jpg" alt="Avatar" class="rounded-full h-12 w-12">
                     <div>
                         <h3 class="font-semibold text-lg">Kevin Pinsag</h3>
                         <p class="text-sm text-gray-600">Administrador</p>
@@ -53,48 +53,30 @@
             <!-- Menú de Navegación -->
             <h2 class="text-xl font-semibold text-center mb-6">Dashboard</h2>
             <ul class="space-y-4">
-                <li><a href="/modules/vet-management/index.html"
-                        class="block py-3 px-5 rounded hover:bg-[var(--darkOrange)]">🐶 Veterinaria</a></li>
-                <li><a href="/modules/social-network/index.html"
-                        class="block py-3 px-5 rounded hover:bg-[var(--darkOrange)]">👥 Red Social</a></li>
-                <li><a href="/modules/videogames/index.html"
-                        class="block py-3 px-5 rounded hover:bg-[var(--darkOrange)]">🎮 Videojuegos</a></li>
-
-                <li><a href="login.html" class="block py-3 px-5 rounded hover:bg-[var(--darkOrange)]">🚪 Cerrar
-                        Sesión</a></li>
+                <li>
+                    <a href="http://localhost:3000/" target="_self"
+                        class="block py-3 px-5 rounded hover:bg-[var(--darkOrange)]">
+                        🏥 Veterinaria
+                    </a>
+                </li>
+                <li>
+                    <a href="../modules/social-network/index.html"
+                        class="block py-3 px-5 rounded hover:bg-[var(--darkOrange)]">
+                        👥 Red Social
+                    </a>
+                </li>
+                <li>
+                    <a href="../modules/videogames/index.html"
+                        class="block py-3 px-5 rounded hover:bg-[var(--darkOrange)]">
+                        🎮 Videojuegos
+                    </a>
+                </li>
+                <li>
+                    <a href="login.html" class="block py-3 px-5 rounded hover:bg-[var(--darkOrange)]">
+                        🚪 Cerrar Sesión
+                    </a>
+                </li>
             </ul>
-
-            <!-- Estadísticas en el Sidebar -->
-            <div class="mt-6 text-white">
-                <h3 class="text-lg font-semibold mb-2">Estadísticas</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-2">
-                        <span>💬</span>
-                        <p>540 Consultas Realizadas</p>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span>👥</span>
-                        <p>1,200 Clientes Registrados</p>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span>⚡</span>
-                        <p>1,024 Usuarios Activos</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Enlaces Rápidos -->
-            <div class="mt-8">
-                <h3 class="text-lg font-semibold mb-2">Enlaces Rápidos</h3>
-                <ul class="space-y-2">
-                    <li><a href="#" class="block text-sm py-2 px-4 rounded hover:bg-[var(--darkOrange)]">🔔
-                            Notificaciones</a></li>
-                    <li><a href="#" class="block text-sm py-2 px-4 rounded hover:bg-[var(--darkOrange)]">⚙️
-                            Configuración</a></li>
-                    <li><a href="#" class="block text-sm py-2 px-4 rounded hover:bg-[var(--darkOrange)]">📈 Reportes</a>
-                    </li>
-                </ul>
-            </div>
         </nav>
 
         <!-- Main content -->
@@ -103,35 +85,30 @@
             <p class="text-lg text-gray-600 mb-8">Aquí tienes un vistazo general a las estadísticas de la aplicación.
             </p>
 
-            <!-- Section: Estadísticas -->
+            <!-- Sección de Estadísticas -->
             <section>
                 <h2 class="text-2xl font-semibold text-[var(--orange)] mb-4">Estadísticas Generales</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Tarjeta -->
                     <div class="card bg-white shadow-lg p-6 rounded-lg">
                         <h3 class="text-xl font-semibold mb-2">Consultas Realizadas</h3>
                         <p class="text-4xl font-bold text-[var(--orange)]">540</p>
-                        <p class="text-sm text-gray-600">Número total de consultas realizadas este mes</p>
                     </div>
                     <div class="card bg-white shadow-lg p-6 rounded-lg">
                         <h3 class="text-xl font-semibold mb-2">Clientes Registrados</h3>
                         <p class="text-4xl font-bold text-[var(--orange)]">1,200</p>
-                        <p class="text-sm text-gray-600">Clientes que han utilizado nuestros servicios</p>
                     </div>
                     <div class="card bg-white shadow-lg p-6 rounded-lg">
                         <h3 class="text-xl font-semibold mb-2">Usuarios Activos</h3>
                         <p class="text-4xl font-bold text-[var(--orange)]">1,024</p>
-                        <p class="text-sm text-gray-600">Usuarios registrados y activos en la plataforma</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Section: Cuadro Estadístico -->
+            <!-- Sección de Gráfico -->
             <section class="mt-8">
                 <h2 class="text-2xl font-semibold text-[var(--orange)] mb-4">Estadísticas Visuales</h2>
                 <div class="bg-white shadow-lg p-6 rounded-lg">
                     <h3 class="text-xl font-semibold text-[var(--orange)] mb-4">Gráfico de Consultas por Mes</h3>
-                    <!-- Gráfico de Barras -->
                     <div class="bg-gray-100 p-6 rounded-lg">
                         <div class="flex justify-between mb-4">
                             <span class="text-gray-700">Enero</span>
@@ -149,33 +126,6 @@
                         </div>
                         <div class="h-3 bg-[var(--orange)] mb-4 rounded-full" style="width: 90%"></div>
                     </div>
-                </div>
-            </section>
-
-            <!-- Section: Misión, Visión y Políticas -->
-            <section class="mt-8">
-                <h2 class="text-2xl font-semibold text-[var(--orange)] mb-6">Información Corporativa</h2>
-                <div class="bg-white shadow-lg p-6 rounded-lg mb-6">
-                    <h3 class="text-xl font-semibold text-[var(--orange)] mb-2">Misión</h3>
-                    <p class="text-gray-700 text-lg">
-                        "Brindar atención médica veterinaria integral y de calidad, priorizando el bienestar y la salud
-                        de las mascotas..."
-                    </p>
-                </div>
-                <div class="bg-white shadow-lg p-6 rounded-lg mb-6">
-                    <h3 class="text-xl font-semibold text-[var(--orange)] mb-2">Visión</h3>
-                    <p class="text-gray-700 text-lg">
-                        "Ser reconocidos como la clínica veterinaria líder en nuestra comunidad, destacándonos por la
-                        excelencia en nuestros servicios..."
-                    </p>
-                </div>
-                <div class="bg-white shadow-lg p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-[var(--orange)] mb-2">Políticas</h3>
-                    <ul class="list-disc pl-6 text-gray-700">
-                        <li>Atención al cliente profesional y respetuosa.</li>
-                        <li>Priorizar la salud y el bienestar animal.</li>
-                        <li>Garantizar higiene y seguridad en todas las instalaciones.</li>
-                    </ul>
                 </div>
             </section>
         </main>
