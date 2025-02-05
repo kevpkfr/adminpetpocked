@@ -8,42 +8,52 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --peach: #fdf6ef; /* Durazno */
-            --orange: #FF8C42; /* Naranja */
-            --darkOrange: #E76F24; /* Naranja oscuro */
+            --peach: #fdf6ef;
+            --orange: #FF8C42;
+            --darkOrange: #E76F24;
         }
     </style>
 </head>
 
-<body class="bg-[var(--peach)] font-sans flex justify-center items-center min-h-screen">
+<body class="bg-[var(--peach)] font-sans flex justify-center items-center min-h-screen p-4">
+    <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg w-full max-w-3xl flex flex-col md:flex-row items-center">
+        <!-- Imagen -->
+        <div class="hidden md:block w-1/2">
+            <img src="../assets/images/gato.jpg" alt="Logo" class="w-full h-auto object-cover border-4 border-gray-300 rounded-lg shadow-md">
+        </div>
 
-    <div class="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 class="text-3xl font-bold text-center text-[var(--orange)] mb-6">Registro de Usuario</h2>
-        <form id="registro-form">
-            <div class="mb-4">
-                <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
-                <input type="text" id="nombre" class="w-full p-3 border border-gray-300 rounded-md" required>
-            </div>
+        <!-- Formulario -->
+        <div class="w-full md:w-1/2 md:pl-6">
+            <h2 class="text-3xl font-bold text-[var(--orange)] mb-6 text-center">Registro de Usuario</h2>
+            <form id="registro-form">
+                <div class="mb-4">
+                    <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
+                    <input type="text" id="nombre" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[var(--orange)]" required>
+                </div>
 
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-700">Correo:</label>
-                <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded-md" required>
-            </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Correo:</label>
+                    <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[var(--orange)]" required>
+                </div>
 
-            <div class="mb-4">
-                <label for="usuario" class="block text-sm font-medium text-gray-700">Usuario:</label>
-                <input type="text" id="usuario" class="w-full p-3 border border-gray-300 rounded-md" required>
-            </div>
+                <div class="mb-4">
+                    <label for="usuario" class="block text-sm font-medium text-gray-700">Usuario:</label>
+                    <input type="text" id="usuario" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[var(--orange)]" required>
+                </div>
 
-            <div class="mb-4">
-                <label for="password" class="block text-sm font-medium text-gray-700">Contraseña:</label>
-                <input type="password" id="password" class="w-full p-3 border border-gray-300 rounded-md" required>
-            </div>
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700">Contraseña:</label>
+                    <input type="password" id="password" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[var(--orange)]" required>
+                </div>
 
-            <button type="submit" class="w-full bg-[var(--orange)] text-white py-3 rounded-md hover:bg-[var(--darkOrange)] focus:outline-none">Registrarse</button>
-        </form>
+                <button type="submit" class="w-full bg-[var(--orange)] text-white py-3 rounded-md hover:bg-[var(--darkOrange)] transition duration-200">Registrarse</button>
+            </form>
 
-        <p class="text-center mt-4 text-gray-600">¿Ya tienes cuenta? <a href="login.html" class="text-[var(--orange)] hover:text-[var(--darkOrange)]">Inicia sesión aquí</a></p>
+            <p class="text-center mt-4 text-gray-600">
+                ¿Ya tienes cuenta? 
+                <a href="login.html" class="text-[var(--orange)] hover:text-[var(--darkOrange)]">Inicia sesión aquí</a>
+            </p>
+        </div>
     </div>
 
     <script>
@@ -60,9 +70,6 @@
                 return;
             }
 
-            // Lógica para registrar al usuario (puedes agregar validaciones y guardarlo en una base de datos)
-
-            // Redirigir al dashboard después del registro
             window.location.href = "dashboard.html";
         });
     </script>

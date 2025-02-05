@@ -12,24 +12,80 @@
             --orange: #FF8C42; /* Naranja */
             --darkOrange: #E76F24; /* Naranja oscuro */
         }
+
+        /* Estilos específicos para el carrusel */
+        .carousel-container {
+            position: relative;
+            width: 100%; /* Cambiado a 100% para pantallas pequeñas */
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel img {
+            width: 100%;
+            flex-shrink: 0;
+            object-fit: cover;
+            height: 100%;
+        }
+
+        .carousel-buttons {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .carousel-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .carousel-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
     </style>
 </head>
 
-<body class="bg-[var(--peach)] font-sans flex justify-center items-center min-h-screen">
+<body class="bg-[var(--peach)] font-sans flex flex-col lg:flex-row">
+    <!-- Carrusel de imágenes -->
+    <div class="carousel-container lg:w-1/2">
+        <div class="carousel">
+            <img src="../assets/images/gato.jpg" alt="Imagen 1">
+            <img src="../assets/images/perro1.jpg" alt="Imagen 2">
+            <img src="../assets/images/cat.jpg" alt="Imagen 3">
+        </div>
+        <div class="carousel-buttons">
+            <button class="carousel-button" id="prev">&lt;</button>
+            <button class="carousel-button" id="next">&gt;</button>
+        </div>
+    </div>
 
-    <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+    <!-- Resto del contenido -->
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full lg:w-1/2 ml-auto mr-0 mt-6 lg:mt-0">
         <h2 class="text-3xl font-bold text-center text-[var(--orange)] mb-6">Iniciar Sesión</h2>
         <form id="login-form">
             <div class="mb-4">
                 <label for="usuario" class="block text-sm font-medium text-gray-700">Usuario:</label>
                 <input type="text" id="usuario" class="w-full p-3 border border-gray-300 rounded-md" required>
             </div>
-
+    
             <div class="mb-4">
                 <label for="password" class="block text-sm font-medium text-gray-700">Contraseña:</label>
                 <input type="password" id="password" class="w-full p-3 border border-gray-300 rounded-md" required>
             </div>
-
+    
             <div class="mb-4">
                 <label for="rol" class="block text-sm font-medium text-gray-700">Selecciona tu rol:</label>
                 <select id="rol" class="w-full p-3 border border-gray-300 rounded-md">
@@ -37,38 +93,46 @@
                     <option value="usuario">Usuario</option>
                 </select>
             </div>
-
+    
             <button type="submit" class="w-full bg-[var(--orange)] text-white py-3 rounded-md hover:bg-[var(--darkOrange)] focus:outline-none">Ingresar</button>
         </form>
         <p class="text-center mt-4 text-gray-600">¿No tienes cuenta? <a href="register.html" class="text-[var(--orange)] hover:text-[var(--darkOrange)]">Regístrate aquí</a></p>
     </div>
-
+    
 
     <script>
-        document.getElementById("login-form").addEventListener("submit", function (event) {
-            event.preventDefault();
+        const carousel = document.querySelector('.carousel');
+        const images = document.querySelectorAll('.carousel img');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
 
-            let usuario = document.getElementById("usuario").value.trim();
-            let password = document.getElementById("password").value.trim();
-            let rol = document.getElementById("rol").value;
+        let index = 0;
+        let interval;
 
-            if (usuario === "" || password === "") {
-                alert("Por favor, completa todos los campos.");
-                return;
-            }
+        function showImage(newIndex) {
+            index = (newIndex + images.length) % images.length; // Ciclo infinito
+            const offset = -index * 100; // Mueve el carrusel
+            carousel.style.transform = `translateX(${offset}%)`;
+        }
 
-            // Guardar el rol en localStorage (o en una variable de sesión, dependiendo de la implementación)
-            localStorage.setItem("rol", rol);
+        function startAutoSlide() {
+            interval = setInterval(() => showImage(index + 1), 3000); // Cambia cada 3 segundos
+        }
 
-            // Redirigir al dashboard si es administrador, o a otro HTML para usuarios
-            if (rol === "admin") {
-                window.location.href = "dashboard.html"; // Redirigir al dashboard si es admin
-            } else {
-                window.location.href = "/usuario/home.html"; // Redirigir a otro HTML si es usuario
-            }
-        });
+        function stopAutoSlide() {
+            clearInterval(interval);
+        }
+
+        prevButton.addEventListener('click', () => showImage(index - 1));
+        nextButton.addEventListener('click', () => showImage(index + 1));
+
+        // Pausar cuando el ratón está sobre el carrusel
+        carousel.addEventListener('mouseover', stopAutoSlide);
+        carousel.addEventListener('mouseout', startAutoSlide);
+
+        // Inicia el carrusel automáticamente
+        startAutoSlide();
     </script>
-    
 </body>
 
 </html>
