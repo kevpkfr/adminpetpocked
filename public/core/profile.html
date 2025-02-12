@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión Veterinaria - Editar Perfil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: "#ff7f00",
+                            light: "#ffae42",
+                            dark: "#cc6600"
+                        },
+                        background: "#F5F5F5",
+                        white: "#ffffff"
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+
+<body class="bg-background font-sans flex flex-col lg:flex-row min-h-screen">
+    
+    <!-- Sidebar -->
+    <aside class="w-full lg:w-64 bg-brand text-white p-6 flex flex-col shadow-lg lg:min-h-screen">
+        <div class="flex items-center justify-center lg:justify-start mb-8">
+            <img src="/assets/images/perfil.jpg" alt="Logo" class="h-12 w-12 rounded-full mr-4">
+            <h2 class="text-2xl font-bold">Mi PetPocket</h2>
+        </div>
+        <h2 class="text-xl font-bold mb-6">Menú Principal</h2>
+        <nav>
+            <ul class="space-y-4">
+                <li><a href="./pets.html" class="flex items-center hover:text-brand-light transition-colors"><span class="mr-3">🐾</span> Mascotas</a></li>
+                <li><a href="./inventory.html" class="flex items-center hover:text-brand-light transition-colors"><span class="mr-3">📦</span> Inventario</a></li>
+                <li><a href="./services.html" class="flex items-center hover:text-brand-light transition-colors"><span class="mr-3">⚕️</span> Servicios</a></li>
+                <li><a href="/core/dashboard.html" class="flex items-center hover:text-brand-light transition-colors"><span class="mr-3">🔙</span> Volver al Dashboard</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main class="flex-grow p-6">
+        <div class="container mx-auto">
+            <h1 class="text-4xl font-bold text-center mb-6 text-brand-dark">Editar Perfil</h1>
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 max-w-2xl mx-auto">
+                <form onsubmit="saveProfile(event)">
+                    <div class="mb-6">
+                        <label for="name" class="block text-lg font-semibold text-gray-700 mb-2">Nombre Completo</label>
+                        <input type="text" id="name" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="block text-lg font-semibold text-gray-700 mb-2">Correo Electrónico</label>
+                        <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="phone" class="block text-lg font-semibold text-gray-700 mb-2">Teléfono</label>
+                        <input type="tel" id="phone" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent">
+                    </div>
+                    <div class="mb-6">
+                        <label for="address" class="block text-lg font-semibold text-gray-700 mb-2">Dirección</label>
+                        <textarea id="address" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent" rows="4" required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="bg-brand text-white px-8 py-3 rounded-md hover:bg-brand-dark transition transform hover:scale-105">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de éxito -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm text-center">
+            <h2 class="text-2xl text-brand font-bold">¡Cambios guardados!</h2>
+            <p class="mt-4 text-gray-700">Tu perfil ha sido actualizado correctamente.</p>
+            <button onclick="closeModal()" class="mt-6 bg-brand text-white px-6 py-2 rounded-md hover:bg-brand-dark transition">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        function loadProfile() {
+            const profile = JSON.parse(localStorage.getItem('profile')) || {};
+            document.getElementById('name').value = profile.name || '';
+            document.getElementById('email').value = profile.email || '';
+            document.getElementById('phone').value = profile.phone || '';
+            document.getElementById('address').value = profile.address || '';
+        }
+
+        function saveProfile(event) {
+            event.preventDefault();
+            const profile = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value
+            };
+            if (!profile.name || !profile.email || !profile.address) {
+                alert("Por favor, completa todos los campos obligatorios.");
+                return;
+            }
+            localStorage.setItem('profile', JSON.stringify(profile));
+            showModal();
+        }
+
+        function showModal() {
+            document.getElementById('successModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.add('hidden');
+        }
+
+        window.onload = loadProfile;
+    </script>
+</body>
+
+</html>
